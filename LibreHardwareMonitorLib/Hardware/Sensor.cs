@@ -1,7 +1,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // Copyright (C) LibreHardwareMonitor and Contributors.
-// Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
+// Partial Copyright (C) Michael Mï¿½ller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
 using System;
@@ -48,6 +48,7 @@ internal class Sensor : ISensor
         IsDefaultHidden = defaultHidden;
         SensorType = sensorType;
         _hardware = hardware;
+        Identifier = new Identifier(_hardware.Identifier, SensorType.ToString().ToLowerInvariant(), Index.ToString(CultureInfo.InvariantCulture));
 
         Parameter[] parameters = new Parameter[parameterDescriptions?.Length ?? 0];
         for (int i = 0; i < parameters.Length; i++)
@@ -79,10 +80,7 @@ internal class Sensor : ISensor
         get { return _hardware; }
     }
 
-    public Identifier Identifier
-    {
-        get { return new Identifier(_hardware.Identifier, SensorType.ToString().ToLowerInvariant(), Index.ToString(CultureInfo.InvariantCulture)); }
-    }
+    public Identifier Identifier { get; }
 
     public int Index { get; }
 
